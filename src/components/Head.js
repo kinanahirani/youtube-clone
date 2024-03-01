@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
+import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import _ from "lodash";
 
 const Head = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
+
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
+  useEffect(() => {
+    const getSearchSuggestions = _.debounce(async () => {
+      try {
+        const res = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+        const data = await res.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching search suggestions:", error);
+      }
+    }, 200);
+
+    if (searchQuery) {
+      getSearchSuggestions();
+    }
+
+    return () => {
+      getSearchSuggestions.cancel();
+    };
+  }, [searchQuery]);
+
   return (
-    <div className="grid grid-flow-col items-center p-5 m-2 shadow-lg">
+    <div
+      className="grid grid-flow-col items-center p-5 shadow-lg bg-white fixed"
+      style={{ width: "100%" }}
+    >
       <div style={{ display: "flex" }} className="col-span-1">
         <img
           onClick={() => toggleMenuHandler()}
@@ -28,10 +55,23 @@ const Head = () => {
         <input
           placeholder="search"
           className="border border-gray-400 px-5 py-2 border-r-0 w-1/2 rounded-l-full"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button className="border border-gray-400 px-5 py-2 rounded-r-full bg-gray-100">
           🔍
         </button>
+        <div className="fixed bg-white mt-1 w-[30rem] rounded-lg shadow-lg">
+          <ul>
+            <li className="py-2 px-2">🔍 iPhone</li>
+            <li className="py-2 px-2">🔍 iPhone</li>
+            <li className="py-2 px-2">🔍 iPhone</li>
+            <li className="py-2 px-2">🔍 iPhone</li>
+            <li className="py-2 px-2">🔍 iPhone</li>
+            <li className="py-2 px-2">🔍 iPhone</li>
+            <li className="py-2 px-2">🔍 iPhone</li>
+          </ul>
+        </div>
       </div>
       <div className="col-span-1">
         <img

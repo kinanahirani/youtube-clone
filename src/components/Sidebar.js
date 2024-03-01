@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
 
   return isMenuOpen ? (
-    <nav className="shadow-lg m-2 p-5 col-span-1">
+    <nav className="shadow-lg m-2 bg-white ml-0">
       <h1 className="font-bold">Subscriptions</h1>
       <ul>
         <div className="flex items-center p-2 hover:bg-gray-300 rounded-lg cursor-pointer">
@@ -13,7 +14,9 @@ const Sidebar = () => {
             className="h-5"
             src="https://i.pinimg.com/474x/fc/16/ef/fc16eff6cd8c7ff12538799b8bd8f82e.jpg"
           />
-          <li className="ml-2">Home</li>
+          <li className="ml-2">
+            <Link to="/">Home</Link>
+          </li>
         </div>
         <div className="flex items-center p-2 hover:bg-sky-700 cursor-pointer">
           <img
