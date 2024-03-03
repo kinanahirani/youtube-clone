@@ -6,7 +6,7 @@ const Sidebar = () => {
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
 
   return isMenuOpen ? (
-    <nav className="shadow-lg m-2 bg-white ml-0">
+    <nav className="shadow-lg m-2 bg-white p-3">
       <h1 className="font-bold">Subscriptions</h1>
       <ul>
         <div className="flex items-center p-2 hover:bg-gray-300 rounded-lg cursor-pointer">
