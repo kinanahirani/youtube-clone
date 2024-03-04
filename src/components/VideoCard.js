@@ -1,7 +1,6 @@
 import React from "react";
 
 const VideoCard = ({ info }) => {
-  console.log(info, "...info");
   const calcTime = (date) => {
     const seconds = Math.floor((new Date() - date) / 1000);
 
@@ -48,7 +47,6 @@ const VideoCard = ({ info }) => {
 
     const videoPostedDate = new Date(publishedAt);
     timeAgo = calcTime(videoPostedDate);
-    console.log(timeAgo);
   }
 
   return (

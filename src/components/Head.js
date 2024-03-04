@@ -20,10 +20,8 @@ const Head = () => {
   useEffect(() => {
     const getSearchSuggestions = _.debounce(async () => {
       try {
-        console.log("API call");
         const res = await fetch(YOUTUBE_SEARCH_API + searchQuery);
         const data = await res.json();
-        console.log(data);
         setSuggestions(data[1]);
         dispatch(cacheResult({ [searchQuery]: data[1] }));
       } catch (error) {
